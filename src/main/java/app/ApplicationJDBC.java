@@ -1,6 +1,5 @@
-/**
- * Created by smb on 01.03.2018.
- */
+package app;
+
 import java.sql.*;
 public class ApplicationJDBC {
     /**
