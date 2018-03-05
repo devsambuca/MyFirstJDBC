@@ -1,4 +1,4 @@
-package app;
+package com.dev.app;
 
 import java.sql.*;
 public class ApplicationJDBC {
