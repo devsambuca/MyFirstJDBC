@@ -6,10 +6,14 @@ package com.dev.app.model;
 public class Developer {
 
     private long id;
-    private String firstName;
-    private String lastName;
-    private String skills;
+    private String fullName;
     private int salary;
+
+    public Developer(long id, String fullName, int salary) {
+        this.id = id;
+        this.fullName = fullName;
+        this.salary = salary;
+    }
 
     public long getId() {
         return id;
@@ -19,28 +23,12 @@ public class Developer {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getSkills() {
-        return skills;
-    }
-
-    public void setSkills(String skills) {
-        this.skills = skills;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public int getSalary() {

@@ -1,13 +1,17 @@
 package com.dev.app;
 
+import com.dev.app.dao.DAODeveloper;
+import com.dev.app.model.Developer;
+
 import java.sql.*;
+import java.util.logging.Logger;
+
 public class ApplicationJDBC {
     /**
      * JDBC Driver and database url
      */
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DATABASE_URL = "jdbc:mysql://localhost/mytestdb";
-
     /**
      * User and Password
      */
@@ -15,41 +19,27 @@ public class ApplicationJDBC {
     static final String PASSWORD = "root";
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
+
+
+
+
+        System.out.println("------- Проверка подключения к MySQL -------");
+
         Connection connection = null;
-        Statement statement = null;
+        try {
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+            DAODeveloper daoDeveloper = new DAODeveloper();
+            daoDeveloper.create(new Developer(10, "Iljya", 30000));
 
-        System.out.println("Registering JDBC driver...");
+        } catch (SQLException ex) {
 
-        Class.forName("com.mysql.jdbc.Driver");
-
-        System.out.println("Creating database connection...");
-        connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-
-        System.out.println("Executing statement...");
-        statement = connection.createStatement();
-
-        String sql;
-        sql = "SELECT * FROM developers";
-
-        ResultSet resultSet = statement.executeQuery(sql);
-
-        System.out.println("Retrieving data from database...");
-        System.out.println("\nDevelopers:");
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String name = resultSet.getString("name");
-            int salary = resultSet.getInt("salary");
-
-            System.out.println("\n================\n");
-            System.out.println("id: " + id);
-            System.out.println("Name: " + name);
-            System.out.println("Salary: $" + salary);
         }
 
-        System.out.println("Closing connection and releasing resources...");
-        resultSet.close();
-        statement.close();
-        connection.close();
+        if (null != connection) {
+            System.out.println("------- Подключение установлено -------");
+        } else {
+            System.out.println("------- Подключение НЕ установлено -------");
+        }
+
     }
 }
-
