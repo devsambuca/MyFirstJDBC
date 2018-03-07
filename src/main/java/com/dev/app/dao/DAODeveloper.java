@@ -13,7 +13,6 @@ import java.util.List;
 public class DAODeveloper implements GenericDAO<Developer> {
 
     public void create(Developer developer) {
-
         String sql = "INSERT INTO developers values (?,?,?)";
         Connection connection = ApplicationJDBC.getConnection();
         try {
