@@ -2,44 +2,54 @@ package com.dev.app;
 
 import com.dev.app.dao.DAODeveloper;
 import com.dev.app.model.Developer;
-
 import java.sql.*;
-import java.util.logging.Logger;
 
 public class ApplicationJDBC {
-    /**
-     * JDBC Driver and database url
-     */
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DATABASE_URL = "jdbc:mysql://localhost/mytestdb";
-    /**
-     * User and Password
-     */
-    static final String USER = "root";
-    static final String PASSWORD = "root";
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        DAODeveloper daoDeveloper = new DAODeveloper();
+//        daoDeveloper.create(new Developer(13, "Uljya Vorobjeva", 60000));
+//        daoDeveloper.delete(9);
+        daoDeveloper.read(5);
+//        daoDeveloper.update(new Developer(1, "Kolya Verevkin", 20000));
+
+        for (int i = 0; i < daoDeveloper.getAll().size(); i++)
+            System.out.println(i);
 
 
+    }
 
 
-        System.out.println("------- Проверка подключения к MySQL -------");
+    /**
+     * JDBC Driver and database url
+     * User and Password
+     */
 
-        Connection connection = null;
+    public static Connection getConnection() {
         try {
-            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-            DAODeveloper daoDeveloper = new DAODeveloper();
-            daoDeveloper.create(new Developer(10, "Iljya", 30000));
 
-        } catch (SQLException ex) {
+            final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+            final String DATABASE_URL = "jdbc:mysql://localhost/mytestdb";
+            final String USER = "root";
+            final String PASSWORD = "root";
+            Class.forName(JDBC_DRIVER);
 
+         System.out.println("Checking connection to MySQL");
+
+            Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+
+            if (null != connection) {
+                System.out.println("Connection established");
+            } else {
+                System.out.println("Connection not established");
+            }
+            return connection;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-
-        if (null != connection) {
-            System.out.println("------- Подключение установлено -------");
-        } else {
-            System.out.println("------- Подключение НЕ установлено -------");
-        }
-
+        return null;
     }
 }

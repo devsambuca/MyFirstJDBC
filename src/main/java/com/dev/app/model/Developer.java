@@ -1,5 +1,8 @@
 package com.dev.app.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * Created by z-FominykhVJ on 01.03.2018.
  */
@@ -14,6 +17,17 @@ public class Developer {
         this.fullName = fullName;
         this.salary = salary;
     }
+
+    public Developer(ResultSet resultSet) {
+        try {
+            resultSet.getInt(1);
+            resultSet.getString(2);
+            resultSet.getInt(3);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public long getId() {
         return id;
@@ -38,4 +52,14 @@ public class Developer {
     public void setSalary(int salary) {
         this.salary = salary;
     }
+
+    @Override
+    public String toString() {
+        return "Developer{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", salary=" + salary +
+                '}';
+    }
 }
+
