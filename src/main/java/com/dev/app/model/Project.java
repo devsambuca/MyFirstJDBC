@@ -3,6 +3,7 @@ package com.dev.app.model;
 public class Project {
     private long id;
     private String name;
+    private int cost;
 
     public long getId() {
         return id;
@@ -18,5 +19,9 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getCost() {
+        return cost;
     }
 }
