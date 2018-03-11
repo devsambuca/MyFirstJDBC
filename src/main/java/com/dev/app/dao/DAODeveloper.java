@@ -7,9 +7,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by z-FominykhVJ on 05.03.2018.
- */
 public class DAODeveloper implements GenericDAO<Developer> {
 
     public void create(Developer developer) {
