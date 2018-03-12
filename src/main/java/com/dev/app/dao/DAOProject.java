@@ -11,7 +11,7 @@ public class DAOProject implements GenericDAO<Project> {
 
     @Override
     public void create(Project project) {
-        String sql = "INSERT INTO projects value (?,?)";
+        String sql = "INSERT INTO projects value (?,?,?)";
         try(Connection connection = ApplicationJDBC.getConnection()){
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, project.getId());
