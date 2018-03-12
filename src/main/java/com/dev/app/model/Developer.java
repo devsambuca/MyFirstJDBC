@@ -18,17 +18,6 @@ public class Developer {
         this.salary = salary;
     }
 
-    public Developer(ResultSet resultSet) {
-        try {
-            resultSet.getInt(1);
-            resultSet.getString(2);
-            resultSet.getInt(3);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public long getId() {
         return id;
     }

@@ -5,6 +5,12 @@ public class Project {
     private String name;
     private int cost;
 
+    public Project(long id, String name, int cost) {
+        this.id = id;
+        this.name = name;
+        this.cost = cost;
+    }
+
     public long getId() {
         return id;
     }
@@ -23,5 +29,14 @@ public class Project {
 
     public int getCost() {
         return cost;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                '}';
     }
 }

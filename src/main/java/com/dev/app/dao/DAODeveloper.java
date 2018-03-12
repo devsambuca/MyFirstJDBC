@@ -57,7 +57,7 @@ public class DAODeveloper implements GenericDAO<Developer> {
             preparedStatement.setLong(3, developer.getId());
             int rowsUpdated = preparedStatement.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("An existing user was updated successfully!");}
+                System.out.println("An existing developer was updated successfully!");}
         } catch (SQLException e) {
             e.printStackTrace();
         }
