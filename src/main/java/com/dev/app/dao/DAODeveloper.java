@@ -79,7 +79,8 @@ public class DAODeveloper implements GenericDAO<Developer> {
     }
 
     public List<Developer> getAll() {
-        String sql = "SELECT * FROM developers";
+        String sql = "SELECT * FROM developers INNER JOIN skills_developers ON developers.id = skills_developers.dev_id " +
+                "INNER JOIN skills ON skills.id = skills_developers.sk_id";
         ArrayList<Developer> developers = new ArrayList<>();
         try(Connection connection = ApplicationJDBC.getConnection()) {
             Statement statement = connection.createStatement();

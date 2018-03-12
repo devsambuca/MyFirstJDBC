@@ -6,27 +6,15 @@ import com.dev.app.model.Developer;
 import com.dev.app.model.Project;
 
 import java.sql.*;
+import java.util.List;
 
 public class ApplicationJDBC {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        DAOProject daoProject = new DAOProject();
-//        daoDeveloper.create(new Developer(13, "Uljya Vorobjeva", 60000));
-//        daoDeveloper.delete(9);
-        daoProject.read(2);
-//        daoDeveloper.update(new Developer(1, "Kolya Verevkin", 20000));
 
-        for (Project proj : daoProject.getAll())
-            System.out.println(proj);
-
-
+        DAODeveloper daoDeveloper = new DAODeveloper();
+            daoDeveloper.read(1);
     }
-
-
-    /**
-     * JDBC Driver and database url
-     * User and Password
-     */
 
     public static Connection getConnection() {
         try {

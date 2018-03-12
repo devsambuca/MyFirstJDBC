@@ -2,6 +2,7 @@ package com.dev.app.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Set;
 
 /**
  * Created by z-FominykhVJ on 01.03.2018.
@@ -11,6 +12,10 @@ public class Developer {
     private long id;
     private String fullName;
     private int salary;
+    private Set<Skill> skills;
+
+    public Developer() {
+    }
 
     public Developer(long id, String fullName, int salary) {
         this.id = id;
@@ -40,6 +45,14 @@ public class Developer {
 
     public void setSalary(int salary) {
         this.salary = salary;
+    }
+
+    public Set<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
     }
 
     @Override
