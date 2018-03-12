@@ -2,7 +2,6 @@ package com.dev.app.dao;
 
 import com.dev.app.ApplicationJDBC;
 import com.dev.app.model.Developer;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
