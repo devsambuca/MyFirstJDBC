@@ -4,9 +4,11 @@ import com.dev.app.dao.DAODeveloper;
 import com.dev.app.dao.DAOProject;
 import com.dev.app.model.Developer;
 import com.dev.app.model.Project;
+import com.dev.app.model.Skill;
 
 import java.sql.*;
 import java.util.List;
+import java.util.Set;
 
 public class ApplicationJDBC {
 
@@ -14,6 +16,7 @@ public class ApplicationJDBC {
 
         DAODeveloper daoDeveloper = new DAODeveloper();
             daoDeveloper.read(1);
+            daoDeveloper.addDevSkills(1, null);
     }
 
     public static Connection getConnection() {

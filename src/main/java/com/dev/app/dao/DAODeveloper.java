@@ -2,20 +2,51 @@ package com.dev.app.dao;
 
 import com.dev.app.ApplicationJDBC;
 import com.dev.app.model.Developer;
+import com.dev.app.model.Skill;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DAODeveloper implements GenericDAO<Developer> {
 
+
+    public void addDevSkills(long id, Set<Skill>skills){
+        String sql1 = "SELECT ? FROM skills";
+        String sql2 = "INSERT INTO skills_developers values (?,?)";
+        Developer developer = new Developer();
+        Skill skill = new Skill();
+        try (Connection connection = ApplicationJDBC.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql1);
+            preparedStatement.setLong(1, skill.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        skills = developer.getSkills();
+        if(skills == null) skills = new HashSet<>();
+        DAOSkill daoSkill = new DAOSkill();
+
+       try(Connection connection = ApplicationJDBC.getConnection()){
+            PreparedStatement preparedStatement = connection.prepareStatement(sql2);
+            preparedStatement.setLong(1, developer.getId());
+            preparedStatement.setObject(2, skills.add(daoSkill.read(id)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void create(Developer developer) {
-        String sql = "INSERT INTO developers values (?,?,?)";
+        String sql1 = "INSERT INTO developers values (?,?,?,?)";
+        String sql2 = "SELECT ? FROM skills";
         Connection connection = ApplicationJDBC.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql1);
             preparedStatement.setLong(1, developer.getId());
             preparedStatement.setString(2, developer.getFullName());
             preparedStatement.setLong(3, developer.getSalary());
+
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
