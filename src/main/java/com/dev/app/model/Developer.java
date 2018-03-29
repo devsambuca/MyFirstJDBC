@@ -23,11 +23,6 @@ public class Developer {
         this.salary = salary;
     }
 
-    public Developer(long id, Set<Skill> skills) {
-        this.id = id;
-        this.skills = skills;
-    }
-
     public long getId() {
         return id;
     }

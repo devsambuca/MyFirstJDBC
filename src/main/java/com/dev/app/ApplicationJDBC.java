@@ -16,7 +16,7 @@ public class ApplicationJDBC {
 
         DAODeveloper daoDeveloper = new DAODeveloper();
             daoDeveloper.read(1);
-            daoDeveloper.addDevSkills(1, null);
+            daoDeveloper.addDevSkills(1,5);
     }
 
     public static Connection getConnection() {
