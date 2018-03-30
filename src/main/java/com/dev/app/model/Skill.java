@@ -8,6 +8,10 @@ public class Skill {
     private String name;
     private Set<Developer>developers;
 
+    public Skill(long id) {
+        this.id = id;
+    }
+
     public Skill() {
     }
 
