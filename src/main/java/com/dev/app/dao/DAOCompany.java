@@ -7,6 +7,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAOCompany implements GenericDAO<Company>{
+
+    public void addCompanyProjects(long company_id, long project_id) {
+        String sql = "INSERT  INTO projects_companies (proj_id, company_id) " +
+                "SELECT p.id, c.id " +
+                "FROM companies c, projects p " +
+                "WHERE p.id = ? " +
+                "AND c.id = ?";
+        try (Connection connection = ApplicationJDBC.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, company_id);
+            preparedStatement.setLong(2, project_id);
+            int rowsAdded = preparedStatement.executeUpdate();
+            if (rowsAdded > 0) {
+                System.out.println("A project was added successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void create(Company company) {
         String sql = "INSERT INTO companies value (?,?)";

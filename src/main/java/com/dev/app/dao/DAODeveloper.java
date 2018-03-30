@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DAODeveloper implements GenericDAO<Developer> {
 
-    public void addDevSkills(long dev_name, long sk_name) {
+    public void addDevSkills(long dev_id, long sk_id) {
         String sql = "INSERT  INTO developer_skills (dev_id, sk_id) " +
                 "SELECT d.id, s.id " +
                 "FROM developers d, skills s " +
@@ -17,8 +17,8 @@ public class DAODeveloper implements GenericDAO<Developer> {
                 "AND s.id = ?";
         try (Connection connection = ApplicationJDBC.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, dev_name);
-            preparedStatement.setLong(2, sk_name);
+            preparedStatement.setLong(1, dev_id);
+            preparedStatement.setLong(2, sk_id);
             int rowsAdded = preparedStatement.executeUpdate();
             if (rowsAdded > 0) {
                 System.out.println("A skills was added successfully!");
@@ -99,8 +99,7 @@ public class DAODeveloper implements GenericDAO<Developer> {
     }
 
     public List<Developer> getAll() {
-        String sql = "SELECT * FROM developers INNER JOIN skills_developers ON developers.id = skills_developers.dev_id " +
-                "INNER JOIN skills ON skills.id = skills_developers.sk_id";
+        String sql = "SELECT * FROM developers";
         ArrayList<Developer> developers = new ArrayList<>();
         try (Connection connection = ApplicationJDBC.getConnection()) {
             Statement statement = connection.createStatement();
