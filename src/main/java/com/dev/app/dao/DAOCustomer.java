@@ -7,6 +7,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAOCustomer implements GenericDAO<Customer> {
+
+    public void addCustomerProjetcs(long proj_id, long cust_id) {
+        String sql = "INSERT  INTO projects_customers (proj_id, cust_id) " +
+                "SELECT p.id, c.id " +
+                "FROM projects p, customers c " +
+                "WHERE p.id = ? " +
+                "AND c.id = ?";
+        try (Connection connection = ApplicationJDBC.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, proj_id);
+            preparedStatement.setLong(2, cust_id);
+            int rowsAdded = preparedStatement.executeUpdate();
+            if (rowsAdded > 0) {
+                System.out.println("A project was added successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void create(Customer customer) {
         String sql = "INSERT INTO customers value (?,?)";

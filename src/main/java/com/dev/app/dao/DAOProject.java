@@ -8,6 +8,25 @@ import java.util.List;
 
 public class DAOProject implements GenericDAO<Project> {
 
+    public void addProjectsDevelopers (long proj_id, long dev_id) {
+        String sql = "INSERT  INTO projects_developers (proj_id, dev_id) " +
+                "SELECT p.id, d.id " +
+                "FROM developers d, projects p " +
+                "WHERE p.id = ? " +
+                "AND d.id = ?";
+        try (Connection connection = ApplicationJDBC.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, proj_id);
+            preparedStatement.setLong(2, dev_id);
+            int rowsAdded = preparedStatement.executeUpdate();
+            if (rowsAdded > 0) {
+                System.out.println("A developer was added successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void create(Project project) {
         String sql = "INSERT INTO projects value (?,?,?)";
