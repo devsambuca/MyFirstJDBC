@@ -2,8 +2,6 @@ package com.dev.app.dao;
 
 import com.dev.app.ApplicationJDBC;
 import com.dev.app.model.Developer;
-import com.dev.app.model.Skill;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +9,20 @@ import java.util.List;
 
 public class DAODeveloper implements GenericDAO<Developer> {
 
-    public void addDevSkills(String dev_name, String sk_name) {
-        Developer developer = new Developer();
-        Skill skill = new Skill();
+    public void addDevSkills(long dev_name, long sk_name) {
+        String sql = "INSERT  INTO developer_skills (dev_id, sk_id) " +
+                "SELECT d.id, s.id " +
+                "FROM developers d, skills s " +
+                "WHERE d.id = ? " +
+                "AND s.id = ?";
         try (Connection connection = ApplicationJDBC.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT  INTO skills_developers (dev_id, sk_id) SELECT d.id, s.id FROM developers d, skills s WHERE d.name = ? AND s.name = ?");
-            preparedStatement.setString(1, developer.getFullName());
-            preparedStatement.setString(2, skill.getName());
-            preparedStatement.executeUpdate();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, dev_name);
+            preparedStatement.setLong(2, sk_name);
+            int rowsAdded = preparedStatement.executeUpdate();
+            if (rowsAdded > 0) {
+                System.out.println("A skills was added successfully!");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -16,7 +16,7 @@ public class ApplicationJDBC {
 
         DAODeveloper daoDeveloper = new DAODeveloper();
             daoDeveloper.read(1);
-            daoDeveloper.addDevSkills("Fedotova Anna","Swift");
+            daoDeveloper.addDevSkills(1,5);
 //            daoDeveloper.create(new Developer(11,"Fedotova Anna", 350000));
     }
 
