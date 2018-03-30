@@ -1,12 +1,7 @@
 package com.dev.app.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Set;
 
-/**
- * Created by z-FominykhVJ on 01.03.2018.
- */
 public class Developer {
 
     private long id;
