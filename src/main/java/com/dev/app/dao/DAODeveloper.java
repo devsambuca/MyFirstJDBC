@@ -11,30 +11,14 @@ import java.util.List;
 
 public class DAODeveloper implements GenericDAO<Developer> {
 
-    public void addDevSkills(long id, long skillID) {
-        List<Long> skillsID = new ArrayList<>();
-        Statement statement = null;
-
-        String sql1 = "SELECT * FROM skills";
-        String sql2 = "INSERT  INTO skills_developers VALUES (?,?)";
+    public void addDevSkills(String dev_name, String sk_name) {
+        Developer developer = new Developer();
+        Skill skill = new Skill();
         try (Connection connection = ApplicationJDBC.getConnection()) {
-            statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql1);
-            while (rs.next()) {
-                long i = rs.getLong("id");
-                if (skillsID != null) {
-                    skillsID.add(i);
-                }
-            }
-            PreparedStatement preparedStatement = connection.prepareStatement(sql2);
-            Developer developer = new Developer();
-            for (Long sk_id : skillsID) {
-                if (sk_id == skillID) {
-                    preparedStatement.setLong(1, developer.getId());
-                    preparedStatement.setLong(2, sk_id);
-                }
-                preparedStatement.executeUpdate();
-            }
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT  INTO skills_developers (dev_id, sk_id) SELECT d.id, s.id FROM developers d, skills s WHERE d.name = ? AND s.name = ?");
+            preparedStatement.setString(1, developer.getFullName());
+            preparedStatement.setString(2, skill.getName());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
