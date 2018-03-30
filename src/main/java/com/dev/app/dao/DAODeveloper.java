@@ -2,17 +2,16 @@ package com.dev.app.dao;
 
 import com.dev.app.ApplicationJDBC;
 import com.dev.app.model.Developer;
+import com.dev.app.model.Skill;
 
 import java.sql.*;
 import java.util.ArrayList;
-
 import java.util.List;
-import java.util.Set;
 
 
 public class DAODeveloper implements GenericDAO<Developer> {
 
-    public void addDevSkills(long dev_id, long skillID) {
+    public void addDevSkills(long id, long skillID) {
         List<Long> skillsID = new ArrayList<>();
         Statement statement = null;
 
@@ -22,18 +21,20 @@ public class DAODeveloper implements GenericDAO<Developer> {
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql1);
             while (rs.next()) {
-               long i = rs.getLong("id");
+                long i = rs.getLong("id");
                 if (skillsID != null) {
                     skillsID.add(i);
                 }
             }
             PreparedStatement preparedStatement = connection.prepareStatement(sql2);
             Developer developer = new Developer();
-                for (Long sk_id : skillsID) {
+            for (Long sk_id : skillsID) {
+                if (sk_id == skillID) {
                     preparedStatement.setLong(1, developer.getId());
                     preparedStatement.setLong(2, sk_id);
-                    preparedStatement.addBatch();
                 }
+                preparedStatement.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,7 +48,6 @@ public class DAODeveloper implements GenericDAO<Developer> {
             preparedStatement.setLong(1, developer.getId());
             preparedStatement.setString(2, developer.getFullName());
             preparedStatement.setLong(3, developer.getSalary());
-
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -123,7 +123,6 @@ public class DAODeveloper implements GenericDAO<Developer> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return developers;
     }
 }
